@@ -17,12 +17,15 @@
 WidgetLCD lcd(V2);
 
 //char auth[] = "mS2ugn3FTAyWVUM_ix3s1R8fRCBPuj_j";
-char auth[] = "kKN8J1M-gfWf2URV7qhxVMS2aGdiBKw3";
+//char auth[] = "CHAVA_DO_NOVO_APP";
 
 // Your WiFi credentials.
 // Set password to "" for open networks.
-char ssid[] = "PuroLeite";
-char pass[] = "passLeitePuro";
+char ssid[] = "CervejaPura";
+char pass[] = "puracerveja";
+
+//char ssid[] = "Magneto";
+//char pass[] = "Sup3r@R3d3";
 
 float red = 0;
 float green = 0;
@@ -36,7 +39,8 @@ void setup()
 {
 #ifdef DEBUG
   Serial.begin(115200);
-  Serial.println(F("SETUP"));
+  if (Serial)
+    Serial.println(F("SETUP"));
 #endif
   pinMode(S0, OUTPUT);
   pinMode(S1, OUTPUT);
@@ -55,44 +59,11 @@ void loop()
 
   if (leitura)
   {
-    /*
-      if ((red > 130 && red < 160) &&
-        (green > 180 && green < 200) &&
-        (blue > 140 && blue < 170))
-      strColor = F("Amostra 1");
-      else if ((red > 140 && red < 160) &&
-             (green > 240 && green < 280) &&
-             (blue > 190 && blue < 220))
-      strColor = F("Amostra 2");
-      else if ((red > 160 && red < 180) &&
-             (green > 170 && green < 190) &&
-             (blue > 140 && blue < 170))
-      strColor = F("Leite PURO");
-      else strColor = F("ERRO");
-
-      if (red < blue && red < green && red < 100)
-      strColor = F("Vermelho");
-      else if (blue < red && blue < green && blue < 1000)
-      strColor = F("Azul");
-      else if (green < red && green < blue)
-      strColor = F("Verde");
-    */
-    float vlrPercent = (red / (blue + green)) * 200;
+    float vlrPercent = (blue / (red + green)) * 100;
     if (vlrPercent >= 100)
       vlrPercent = 100.00;
-    /*
-      if (vlrPercent > 95)
-      impureza = F("Leite Puro");
-      else if (vlrPercent > 85 && vlrPercent <= 95)
-      impureza = F("Amostra 1");
-      else if (vlrPercent > 75 && vlrPercent <= 85)
-      impureza = F("Amostra 2");
-      else if (vlrPercent > 65 && vlrPercent <= 75)
-      impureza = F("Amostra 3");
-      else impureza = F("Amostra 4");
-    */
 
-    pureza = "Leite: " + String(vlrPercent);
+    pureza = "Cerveja: " + String(vlrPercent);
     impureza = "Outros: " + String(100 - vlrPercent);
 
     Blynk.virtualWrite(V1, vlrPercent);
@@ -100,7 +71,8 @@ void loop()
     lcd.print(0, 0, pureza);
     lcd.print(0, 1, impureza);
 #ifdef DEBUG
-    Serial.print("R: ");
+    if (Serial)
+      Serial.print("R: ");
     Serial.print(red, DEC);
     Serial.print(" G: ");
     Serial.print(green, DEC);
@@ -122,7 +94,8 @@ void loop()
 BLYNK_WRITE(V0)
 {
 #ifdef DEBUG
-  Serial.println(F("Blink"));
+  if (Serial)
+    Serial.println(F("Blink"));
 #endif
   lcd.clear();
   lcd.print(0, 0, F("Fazendo leitura"));
@@ -133,7 +106,8 @@ BLYNK_WRITE(V0)
 void color()
 {
 #ifdef DEBUG
-  Serial.println(F("COLOR"));
+  if (Serial)
+    Serial.println(F("COLOR"));
 #endif
   digitalWrite(S0, HIGH);
   delay(100);
