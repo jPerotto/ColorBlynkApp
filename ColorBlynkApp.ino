@@ -17,7 +17,7 @@
 WidgetLCD lcd(V2);
 
 //char auth[] = "mS2ugn3FTAyWVUM_ix3s1R8fRCBPuj_j";
-//char auth[] = "CHAVA_DO_NOVO_APP";
+char auth[] = "ycWqM6b_cWjnKS6QRApj-wb3KfsabzOn";
 
 // Your WiFi credentials.
 // Set password to "" for open networks.
